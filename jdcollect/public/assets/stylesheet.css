@@ -1,0 +1,113 @@
+body{
+    background-color: #C2C2C2;
+    margin: 0px;
+    padding: 0px;
+}
+.pageConnexion{
+    position: relative;
+}
+.titreConneion{
+    color: #006FFF;
+    font-family: 'Segoe UI';
+    font-weight: bolder;
+    font-size: 60px;
+    text-align: center;
+}
+.barreSeparatrice{
+    position: absolute;
+    top: 23%;
+    left: 30%;
+    width: 20%;
+    height: 20%;
+    background-color: #FFFFFF;
+    top: 140%;
+    left: 40%;
+    border-radius: 10%;
+    border-style: none;
+    border-radius: 8px;
+    border-color: #FFFFFF;
+
+}
+.imagePageConnexion{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 90%;
+    left: 10%;
+    margin-top: 90px;
+    margin-left: 150px;
+}
+
+.imageLogo{
+    width: 120%;
+}
+
+.connexion{
+    background-color: #006FFF;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    height: 590px auto;
+    flex-direction: column;
+    width: 400px;
+    margin-left: 900px;
+    margin-top: 200px;
+    margin-bottom: 60px;
+    position: absolute;
+    left: 8%;
+    top: 50%;
+}
+.labelFormulaire1{
+    color: #FFFFFF;
+    font-size: 20px;
+    font-family: 'Segoe UI';
+    font-weight: bolder;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-right: 160px;
+}
+.labelFormulaire2{
+    color: #FFFFFF;
+    font-size: 20px;
+    font-family: 'Segoe UI';
+    font-weight: bolder;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-right: 130px;
+}
+.boutonUtilisateur{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    color: #FFFFFF;
+    font-family: system-ui;
+    font-weight: bolder;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    border-color: #FFFFFF;
+    border-style: solid;
+    border-radius: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+    color: #006FFF;
+    font-size: 20px;
+}
+.inputFormulaire{
+    border-radius: 6px;
+    border: 3px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    height: 25px;
+    width: 250px;
+    font-size: 14px;
+    font-family: 'Segoe UI';
+    display: flex;
+    flex-direction: column; 
+    align-items: center;  
+}
+.imageLogoUser{
+    width: 30%;
+    margin-top: 20px;
+}

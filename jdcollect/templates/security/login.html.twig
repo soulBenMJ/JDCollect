@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnection</a>
+        </div>
+    {% endif %}
+
+    <div class="pageConnexion">
+        <div class="titreConneion">
+            <p class="titreHautPage">Se connecter<p>
+        </div>
+
+        <hr class="barreSeparatrice">
+
+        <hr class="barreSeparatrice">
+        <div class="imagePageConnexion">
+            <img class="imageLogo" src="assets/imageLogo.png">
+        </div>
+        <div class="connexion">
+            <img class="imageLogoUser" src="assets/imageLogoUser.png">
+            <label class="labelFormulaire1" for="inputUsername">Identifiant</label>
+            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="inputFormulaire" autocomplete="username" required autofocus>
+            <label class="labelFormulaire2" for="inputPassword">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="inputFormulaire" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="boutonUtilisateur" type="submit">
+                Je me connecte
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}
