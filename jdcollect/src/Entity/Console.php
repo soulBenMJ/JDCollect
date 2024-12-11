@@ -40,23 +40,22 @@ class Console
     #[ORM\Column(length: 255)]
     private ?string $couleur = null;
 
-    #[ORM\ManyToOne(inversedBy: 'consoles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Categorie $idCateg = null;
-
-    #[ORM\ManyToOne(inversedBy: 'consoles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Jeux $idJx = null;
-
     /**
-     * @var Collection<int, Marque>
+     * @var Collection<int, Jeux>
      */
-    #[ORM\OneToMany(targetEntity: Marque::class, mappedBy: 'idConsole')]
-    private Collection $marques;
+    #[ORM\OneToMany(targetEntity: Jeux::class, mappedBy: 'console')]
+    private Collection $jeux;
+
+    #[ORM\ManyToOne(inversedBy: 'consoles')]
+    private ?Categorie $categorie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'consoles')]
+    private ?Marque $Marque = null;
 
     public function __construct()
     {
         $this->marques = new ArrayCollection();
+        $this->jeux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -210,6 +209,60 @@ class Console
                 $marque->setIdConsole(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Jeux>
+     */
+    public function getJeux(): Collection
+    {
+        return $this->jeux;
+    }
+
+    public function addJeux(Jeux $jeux): static
+    {
+        if (!$this->jeux->contains($jeux)) {
+            $this->jeux->add($jeux);
+            $jeux->setConsole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJeux(Jeux $jeux): static
+    {
+        if ($this->jeux->removeElement($jeux)) {
+            // set the owning side to null (unless already changed)
+            if ($jeux->getConsole() === $this) {
+                $jeux->setConsole(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getMarque(): ?Marque
+    {
+        return $this->Marque;
+    }
+
+    public function setMarque(?Marque $Marque): static
+    {
+        $this->Marque = $Marque;
 
         return $this;
     }

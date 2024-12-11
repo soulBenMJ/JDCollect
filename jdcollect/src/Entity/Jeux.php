@@ -38,20 +38,10 @@ class Jeux
     private ?float $prix_revente = null;
 
     #[ORM\ManyToOne(inversedBy: 'jeux')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Categorie $idCateg = null;
+    private ?Console $console = null;
 
-    /**
-     * @var Collection<int, Console>
-     */
-    #[ORM\OneToMany(targetEntity: Console::class, mappedBy: 'idJx')]
-    private Collection $consoles;
-
-    /**
-     * @var Collection<int, Marque>
-     */
-    #[ORM\OneToMany(targetEntity: Marque::class, mappedBy: 'idJx')]
-    private Collection $marques;
+    #[ORM\ManyToOne(inversedBy: 'jeuxes')]
+    private ?Categorie $categorie = null;
 
     public function __construct()
     {
@@ -216,6 +206,30 @@ class Jeux
                 $marque->setIdJx(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getConsole(): ?Console
+    {
+        return $this->console;
+    }
+
+    public function setConsole(?Console $console): static
+    {
+        $this->console = $console;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
