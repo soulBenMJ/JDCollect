@@ -22,21 +22,22 @@ class Categorie
     private ?string $niveau = null;
 
     /**
-     * @var Collection<int, Jeux>
-     */
-    #[ORM\OneToMany(targetEntity: Jeux::class, mappedBy: 'idCateg')]
-    private Collection $jeux;
-
-    /**
      * @var Collection<int, Console>
      */
-    #[ORM\OneToMany(targetEntity: Console::class, mappedBy: 'idCateg')]
+    #[ORM\OneToMany(targetEntity: Console::class, mappedBy: 'categorie')]
     private Collection $consoles;
+
+    /**
+     * @var Collection<int, Jeux>
+     */
+    #[ORM\OneToMany(targetEntity: Jeux::class, mappedBy: 'categorie')]
+    private Collection $jeuxes;
 
     public function __construct()
     {
         $this->jeux = new ArrayCollection();
         $this->consoles = new ArrayCollection();
+        $this->jeuxes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,5 +127,13 @@ class Categorie
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Jeux>
+     */
+    public function getJeuxes(): Collection
+    {
+        return $this->jeuxes;
     }
 }

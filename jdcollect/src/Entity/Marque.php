@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MarqueRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MarqueRepository::class)]
@@ -16,16 +18,23 @@ class Marque
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\ManyToOne(inversedBy: 'marques')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Console $idConsole = null;
+    /**
+     * @var Collection<int, Amiibos>
+     */
+    #[ORM\OneToMany(targetEntity: Amiibos::class, mappedBy: 'marque')]
+    private Collection $amiibo;
 
-    #[ORM\ManyToOne(inversedBy: 'marques')]
-    private ?Jeux $idJx = null;
+    /**
+     * @var Collection<int, Console>
+     */
+    #[ORM\OneToMany(targetEntity: Console::class, mappedBy: 'Marque')]
+    private Collection $consoles;
 
-    #[ORM\ManyToOne(inversedBy: 'marques')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Amiibos $idAmii = null;
+    public function __construct()
+    {
+        $this->amiibo = new ArrayCollection();
+        $this->consoles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -76,6 +85,66 @@ class Marque
     public function setIdAmii(?Amiibos $idAmii): static
     {
         $this->idAmii = $idAmii;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Amiibos>
+     */
+    public function getAmiibo(): Collection
+    {
+        return $this->amiibo;
+    }
+
+    public function addAmiibo(Amiibos $amiibo): static
+    {
+        if (!$this->amiibo->contains($amiibo)) {
+            $this->amiibo->add($amiibo);
+            $amiibo->setMarque($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAmiibo(Amiibos $amiibo): static
+    {
+        if ($this->amiibo->removeElement($amiibo)) {
+            // set the owning side to null (unless already changed)
+            if ($amiibo->getMarque() === $this) {
+                $amiibo->setMarque(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Console>
+     */
+    public function getConsoles(): Collection
+    {
+        return $this->consoles;
+    }
+
+    public function addConsole(Console $console): static
+    {
+        if (!$this->consoles->contains($console)) {
+            $this->consoles->add($console);
+            $console->setMarque($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsole(Console $console): static
+    {
+        if ($this->consoles->removeElement($console)) {
+            // set the owning side to null (unless already changed)
+            if ($console->getMarque() === $this) {
+                $console->setMarque(null);
+            }
+        }
 
         return $this;
     }

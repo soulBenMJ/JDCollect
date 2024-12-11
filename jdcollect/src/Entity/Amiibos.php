@@ -31,11 +31,8 @@ class Amiibos
     #[ORM\Column]
     private ?float $prix_revente = null;
 
-    /**
-     * @var Collection<int, Marque>
-     */
-    #[ORM\OneToMany(targetEntity: Marque::class, mappedBy: 'idAmii')]
-    private Collection $marques;
+    #[ORM\ManyToOne(inversedBy: 'amiibo')]
+    private ?Marque $marque = null;
 
     public function __construct()
     {
@@ -107,32 +104,14 @@ class Amiibos
         return $this;
     }
 
-    /**
-     * @return Collection<int, Marque>
-     */
-    public function getMarques(): Collection
+    public function getMarque(): ?Marque
     {
-        return $this->marques;
+        return $this->marque;
     }
 
-    public function addMarque(Marque $marque): static
+    public function setMarque(?Marque $marque): static
     {
-        if (!$this->marques->contains($marque)) {
-            $this->marques->add($marque);
-            $marque->setIdAmii($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMarque(Marque $marque): static
-    {
-        if ($this->marques->removeElement($marque)) {
-            // set the owning side to null (unless already changed)
-            if ($marque->getIdAmii() === $this) {
-                $marque->setIdAmii(null);
-            }
-        }
+        $this->marque = $marque;
 
         return $this;
     }
